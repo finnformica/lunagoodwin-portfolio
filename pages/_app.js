@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Luna Ocean Sunshine</title>
+        <title>Luna Ocean</title>
         <meta name="robots" content="all" />
         <meta
           name="description"

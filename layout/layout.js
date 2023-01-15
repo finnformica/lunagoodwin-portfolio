@@ -7,8 +7,19 @@ const Layout = ({ children }) => {
   const router = useRouter();
   return (
     <>
-      <Header />
-      <main className="">{children}</main>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main
+          style={{
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+          // className="bg-red-500 grow"
+        >
+          {children}
+        </main>
+      </div>
     </>
   );
 };

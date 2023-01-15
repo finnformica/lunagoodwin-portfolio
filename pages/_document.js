@@ -20,8 +20,12 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap"
             rel="stylesheet"
           />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap"
+            rel="stylesheet"
+          />
         </Head>
-        <body style={{ margin: 0 }}>
+        <body className=" m-0 bg-black text-white font-sans">
           <Main />
           <NextScript />
         </body>

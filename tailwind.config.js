@@ -6,14 +6,11 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      audiowide: "Audiowide, sans-serif",
       sans: "Rubik, sans-serif",
+      audiowide: "Audiowide, sans-serif",
     },
     extend: {},
   },
   darkMode: "class",
-  theme: {
-    extend: {},
-  },
   plugins: [],
 };

@@ -29,7 +29,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body className="dark:bg-black bg-white text-black dark:text-white font-sans min-h-screen">
+        <body className=" transition-colors duration-1000 ease-in dark:bg-black bg-white text-black dark:text-white font-sans min-h-screen">
           <Main />
           <NextScript />
         </body>

@@ -19,18 +19,16 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <main
+        className="grow flex flex-col"
+        style={{
+          opacity: transitionStage === "fadeIn" ? 1 : 0,
+          transition: "opacity 0.5s ease-in",
+        }}
         onTransitionEnd={() => {
           if (transitionStage === "fadeOut") {
             setDisplayChildren(children);
             setTransitionStage("fadeIn");
           }
-        }}
-        style={{
-          flexGrow: 1,
-          display: "flex",
-          flexDirection: "column",
-          opacity: transitionStage === "fadeIn" ? 1 : 0,
-          transition: "1s",
         }}
       >
         {displayChildren}

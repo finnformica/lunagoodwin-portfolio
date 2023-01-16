@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useTheme } from "next-themes";
@@ -6,12 +7,19 @@ import { MdDarkMode } from "react-icons/md";
 
 const Header = () => {
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <nav className="flex w-full border-b border-white/10 font-audiowide">
-      <div className="flex p-8 md:w-2/3 w-1/2 box-border items-center border-r border-white/10">
+    <nav className="flex w-full border-b border-black/10 dark:border-white/10 font-audiowide">
+      <div className="flex p-8 md:w-2/3 w-1/2 box-border items-center border-r border-black/10 dark:border-white/10">
         <h1 className="text-xl md:text-3xl grow">luna ocean</h1>
         {currentTheme === "dark" ? (
           <MdOutlineDarkMode

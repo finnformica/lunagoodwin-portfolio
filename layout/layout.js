@@ -17,26 +17,24 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main
-          onTransitionEnd={() => {
-            if (transitionStage === "fadeOut") {
-              setDisplayChildren(children);
-              setTransitionStage("fadeIn");
-            }
-          }}
-          style={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            opacity: transitionStage === "fadeIn" ? 1 : 0,
-            transition: "1s",
-          }}
-        >
-          {displayChildren}
-        </main>
-      </div>
+      <Header />
+      <main
+        onTransitionEnd={() => {
+          if (transitionStage === "fadeOut") {
+            setDisplayChildren(children);
+            setTransitionStage("fadeIn");
+          }
+        }}
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          opacity: transitionStage === "fadeIn" ? 1 : 0,
+          transition: "1s",
+        }}
+      >
+        {displayChildren}
+      </main>
     </>
   );
 };

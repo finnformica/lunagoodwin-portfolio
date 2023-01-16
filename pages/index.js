@@ -17,7 +17,7 @@ const GridItem = ({ text, title, img, dataIndex, dataStatus }) => {
     <article
       data-index={dataIndex}
       data-status={dataStatus}
-      className="data-[status=inactive]:scale-0 absolute left-0 top-0 grid grid-rows-[1fr_100px] grid-cols-[2fr_1fr] h-[54.45rem]"
+      className="data-[status=inactive]:scale-0 absolute left-0 top-0 grid grid-rows-[1fr_100px] grid-cols-[2fr_1fr] h-[54.45rem] portfolio-item"
     >
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         <DisplayImage name={img} />
@@ -39,36 +39,54 @@ const GridItem = ({ text, title, img, dataIndex, dataStatus }) => {
 };
 
 const Home = () => {
+  let activeIndex = 0;
+  const groups = document.getElementsByClassName("portfolio-item");
+
+  const handleLeftClick = () => {
+    const nextIndex =
+      activeIndex + 1 <= groups.length - 1 ? activeIndex + 1 : 0;
+    const currentGroup = document.querySelector(`[data-index]`);
+  };
   return (
     <div className="grow relative">
-      <GridItem
+      {/* <GridItem
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         title="Anime Vol. 47"
         img="img1.webp"
-        dataIndex={0}
-        dataStatus="inactive"
+        dataIndex="0"
+        dataStatus="active"
       />
       <GridItem
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         title="Anime Vol. 48"
         img="img2.webp"
-        dataIndex={1}
+        dataIndex="1"
         dataStatus="inactive"
       />
       <GridItem
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         title="Anime Vol. 49"
         img="img3.webp"
-        dataIndex={2}
+        dataIndex="2"
         dataStatus="inactive"
       />
       <GridItem
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         title="Anime Vol. 50"
         img="img4.webp"
-        dataIndex={3}
-        dataStatus="active"
-      />
+        dataIndex="3"
+        dataStatus="inactive"
+      /> */}
+      {[0, 1, 2, 3].map((item, id) => (
+        <GridItem
+          key={id}
+          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          title={`Anime Vol. ${47 + item}`}
+          img={`img${item + 1}.webp`}
+          dataIndex={item.toString()}
+          dataStatus={item === 0 ? "active" : "inactive"}
+        />
+      ))}
     </div>
   );
 };

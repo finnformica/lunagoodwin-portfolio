@@ -3,6 +3,8 @@ import { HiArrowNarrowLeft } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
 
+import { items } from "../content/portfolio";
+
 const DisplayImage = ({ name }) => {
   return (
     <img
@@ -13,7 +15,45 @@ const DisplayImage = ({ name }) => {
   );
 };
 
-const GridItem = ({ text, title, img, active, setActive }) => {
+const GridItem = ({ text, title, img, handleLeft, handleRight }) => {
+  return (
+    <article className="absolute left-0 top-0 grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-[54.45rem] portfolio-item">
+      <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
+        <DisplayImage name={img} />
+      </div>
+      <div className="border-b border-black/10 dark:border-white/10 h-full md:relative flex items-center">
+        <div
+          className="md:absolute md:right-0 md:bottom-0 md:m-4 md:text-right md:initial
+        text-center w-full"
+        >
+          <p>{text}</p>
+          <RxDotsVertical
+            size={30}
+            className="my-6 md:ml-auto md:mr-0 mx-auto"
+          />
+          <h1 className="text-3xl">{title}</h1>
+        </div>
+      </div>
+      <div className="flex items-center border-r border-black/10 dark:border-white/10 h-full"></div>
+      <div className="h-full flex justify-around items-center px-4 py-8">
+        <HiArrowNarrowLeft
+          size={30}
+          onClick={() => handleLeft()}
+          className="cursor-pointer"
+        />
+        <HiArrowNarrowRight
+          size={30}
+          onClick={() => handleRight()}
+          className="cursor-pointer"
+        />
+      </div>
+    </article>
+  );
+};
+
+const Home = () => {
+  const [active, setActive] = useState(0);
+
   const handleRightClick = () => {
     const nextIndex = active + 1 <= 4 - 1 ? active + 1 : 0;
     setActive(nextIndex);
@@ -25,53 +65,18 @@ const GridItem = ({ text, title, img, active, setActive }) => {
   };
 
   return (
-    <article className="absolute left-0 top-0 grid grid-rows-[1fr_100px] grid-cols-[2fr_1fr] h-[54.45rem] portfolio-item">
-      <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
-        <DisplayImage name={img} />
-      </div>
-      <div className="border-b border-black/10 dark:border-white/10 h-full relative text-right">
-        <div className="absolute right-0 bottom-0 m-4">
-          <p>{text}</p>
-          <RxDotsVertical size={30} className="my-6 ml-auto" />
-          <h1 className="text-3xl">{title}</h1>
-        </div>
-      </div>
-      <div className="flex p-8 items-center border-r border-black/10 dark:border-white/10 h-full"></div>
-      <div className="h-full flex justify-around items-center px-4">
-        <HiArrowNarrowLeft
-          size={30}
-          onClick={() => handleLeftClick()}
-          className="cursor-pointer"
-        />
-        <HiArrowNarrowRight
-          size={30}
-          onClick={() => handleRightClick()}
-          className="cursor-pointer"
-        />
-      </div>
-    </article>
+    <div className="grow relative">
+      <GridItem
+        text={items[active].text}
+        title={items[active].title}
+        img={items[active].img}
+        active={active}
+        setActive={setActive}
+        handleLeft={handleLeftClick}
+        handleRight={handleRightClick}
+      />
+    </div>
   );
-};
-
-const Home = () => {
-  const [active, setActive] = useState(0);
-
-  const slides = [0, 1, 2, 3].map((item, id) => (
-    <GridItem
-      key={id}
-      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-      title={`Anime Vol. ${47 + item}`}
-      img={`img${item + 1}.webp`}
-      active={active}
-      setActive={setActive}
-    />
-  ));
-
-  const [slide, setSlide] = useState(slides[active]);
-
-  useEffect(() => setSlide(slides[active]), [active]);
-
-  return <div className="grow relative">{slide}</div>;
 };
 
 export default Home;

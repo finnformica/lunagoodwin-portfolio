@@ -9,5 +9,5 @@
 }
 
 ::selection {
-  color: red;
+  user-select: none;
 }

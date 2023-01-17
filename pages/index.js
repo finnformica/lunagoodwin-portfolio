@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
@@ -12,13 +13,19 @@ const DisplayImage = ({ name }) => {
   );
 };
 
-const GridItem = ({ text, title, img, dataIndex, dataStatus }) => {
+const GridItem = ({ text, title, img, active, setActive }) => {
+  const handleRightClick = () => {
+    const nextIndex = active + 1 <= 4 - 1 ? active + 1 : 0;
+    setActive(nextIndex);
+  };
+
+  const handleLeftClick = () => {
+    const nextIndex = active - 1 >= 0 ? active - 1 : 4 - 1;
+    setActive(nextIndex);
+  };
+
   return (
-    <article
-      data-index={dataIndex}
-      data-status={dataStatus}
-      className="data-[status=inactive]:scale-0 absolute left-0 top-0 grid grid-rows-[1fr_100px] grid-cols-[2fr_1fr] h-[54.45rem] portfolio-item"
-    >
+    <article className="absolute left-0 top-0 grid grid-rows-[1fr_100px] grid-cols-[2fr_1fr] h-[54.45rem] portfolio-item">
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         <DisplayImage name={img} />
       </div>
@@ -31,64 +38,40 @@ const GridItem = ({ text, title, img, dataIndex, dataStatus }) => {
       </div>
       <div className="flex p-8 items-center border-r border-black/10 dark:border-white/10 h-full"></div>
       <div className="h-full flex justify-around items-center px-4">
-        <HiArrowNarrowLeft size={30} />
-        <HiArrowNarrowRight size={30} />
+        <HiArrowNarrowLeft
+          size={30}
+          onClick={() => handleLeftClick()}
+          className="cursor-pointer"
+        />
+        <HiArrowNarrowRight
+          size={30}
+          onClick={() => handleRightClick()}
+          className="cursor-pointer"
+        />
       </div>
     </article>
   );
 };
 
 const Home = () => {
-  let activeIndex = 0;
-  const groups = document.getElementsByClassName("portfolio-item");
+  const [active, setActive] = useState(0);
 
-  const handleLeftClick = () => {
-    const nextIndex =
-      activeIndex + 1 <= groups.length - 1 ? activeIndex + 1 : 0;
-    const currentGroup = document.querySelector(`[data-index]`);
-  };
-  return (
-    <div className="grow relative">
-      {/* <GridItem
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        title="Anime Vol. 47"
-        img="img1.webp"
-        dataIndex="0"
-        dataStatus="active"
-      />
-      <GridItem
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        title="Anime Vol. 48"
-        img="img2.webp"
-        dataIndex="1"
-        dataStatus="inactive"
-      />
-      <GridItem
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        title="Anime Vol. 49"
-        img="img3.webp"
-        dataIndex="2"
-        dataStatus="inactive"
-      />
-      <GridItem
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-        title="Anime Vol. 50"
-        img="img4.webp"
-        dataIndex="3"
-        dataStatus="inactive"
-      /> */}
-      {[0, 1, 2, 3].map((item, id) => (
-        <GridItem
-          key={id}
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          title={`Anime Vol. ${47 + item}`}
-          img={`img${item + 1}.webp`}
-          dataIndex={item.toString()}
-          dataStatus={item === 0 ? "active" : "inactive"}
-        />
-      ))}
-    </div>
-  );
+  const slides = [0, 1, 2, 3].map((item, id) => (
+    <GridItem
+      key={id}
+      text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      title={`Anime Vol. ${47 + item}`}
+      img={`img${item + 1}.webp`}
+      active={active}
+      setActive={setActive}
+    />
+  ));
+
+  const [slide, setSlide] = useState(slides[active]);
+
+  useEffect(() => setSlide(slides[active]), [active]);
+
+  return <div className="grow relative">{slide}</div>;
 };
 
 export default Home;

@@ -8,7 +8,7 @@ import { items } from "../content/portfolio";
 const DisplayImage = ({ name }) => {
   return (
     <img
-      className="object-cover w-full h-full shadow-[0_0_60px_60px_rgba(0,0,0,0.8)_inset]"
+      className="object-cover w-full h-full"
       src={`/images/${name}`}
       alt="portfolio image"
     />
@@ -17,7 +17,7 @@ const DisplayImage = ({ name }) => {
 
 const GridItem = ({ text, title, img, handleLeft, handleRight }) => {
   return (
-    <article className="absolute left-0 top-0 grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-[54.45rem] portfolio-item">
+    <article className="absolute left-0 top-0 grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-[54.45rem] w-full">
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         <DisplayImage name={img} />
       </div>

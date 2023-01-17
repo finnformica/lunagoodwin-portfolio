@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <nav className="flex w-full border-b border-black/10 dark:border-white/10 font-audiowide">
       <div className="flex p-8 md:w-2/3 w-1/2 box-border items-center border-r border-black/10 dark:border-white/10">
-        <h1 className="text-xl md:text-3xl grow text-[#DD0000]">luna ocean</h1>
+        <h1 className="text-xl md:text-3xl grow">luna ocean</h1>
         {currentTheme === "dark" ? (
           <MdOutlineDarkMode
             className="cursor-pointer"
@@ -38,16 +38,16 @@ const Header = () => {
 
       <div className="flex md:w-1/3 w-1/2 justify-center items-center gap-10 md:gap-14 xl:gap-36">
         <Link
-          className="no-underline]"
+          className="no-underline dark:text-white text-black"
           href="/"
-          style={{ color: router.route === "/" ? "#DD0000" : "#9e9e9e" }}
+          style={{ color: router.route === "/" ? "inherit" : "#9e9e9e" }}
         >
           About
         </Link>
         <Link
-          className="no-underline"
+          className="no-underline dark:text-white text-black"
           href="/contact"
-          style={{ color: router.route === "/" ? "#9e9e9e" : "#DD0000" }}
+          style={{ color: router.route === "/" ? "#9e9e9e" : "inherit" }}
         >
           Contact
         </Link>

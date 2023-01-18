@@ -18,33 +18,20 @@ const FlowField = (props) => {
       field,
       columns,
       rows,
-      fieldSize = 75,
+      fieldSize = 50,
       noise3D,
       noiseZ = 0,
-      noiseSpeed = 0.0015,
+      noiseSpeed = 0.01,
       fieldForce = 0.05,
       particles,
       particleCount = 10000,
       particleSize = 0.56,
       hueBase = 232,
-      hueRange = 10,
-      trailLength = 0.05;
-
-    function drawCirc(ctx) {
-      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-      ctx.fillStyle = "#CCC";
-      ctx.beginPath();
-      ctx.arc(
-        ctx.canvas.width / 2,
-        ctx.canvas.height / 2,
-        50 * Math.sin(frameCount * 0.002) ** 2,
-        0,
-        2 * Math.PI
-      );
-      ctx.fill();
-    }
+      hueRange = -10,
+      trailLength = 0.04;
 
     function initField() {
+      // initialise flow field as a matrix of vectors
       field = new Array(columns);
       for (let x = 0; x < columns; x++) {
         field[x] = new Array(rows);
@@ -56,6 +43,7 @@ const FlowField = (props) => {
     }
 
     function initParticles() {
+      // initialise array of particles with random pos, vel, acc
       particles = [];
       for (let i = 0; i < particleCount; i++) {
         let particle = new Particle(Math.random() * w, Math.random() * h);
@@ -64,6 +52,7 @@ const FlowField = (props) => {
     }
 
     function calcField() {
+      // update flow field based on simplex noise
       for (let x = 0; x < columns; x++) {
         for (let y = 0; y < rows; y++) {
           let angle = (noise3D(x / 20, y / 20, noiseZ) + 1) * Math.PI;
@@ -78,6 +67,7 @@ const FlowField = (props) => {
     }
 
     function drawParticles(ctx) {
+      // draw particles and update vel based on flow field force
       particles.forEach((p) => {
         var ps = (p.fieldSize =
           Math.abs(p.vel.x + p.vel.y) * particleSize + 0.3);
@@ -97,6 +87,7 @@ const FlowField = (props) => {
     }
 
     function drawBackground(ctx) {
+      // draw opaque background to give illusion of particle trail fading
       ctx.fillStyle = "rgba(0,0,0," + trailLength + ")";
       ctx.fillRect(0, 0, w, h);
     }
@@ -117,7 +108,10 @@ const FlowField = (props) => {
     }
 
     function draw(ctx) {
+      // calculate flow field
       calcField();
+
+      // update simplex z-dimension
       noiseZ += noiseSpeed;
 
       drawBackground(ctx);
@@ -127,12 +121,7 @@ const FlowField = (props) => {
     reset();
     window.addEventListener("resize", reset);
 
-    console.log("flow field starting...");
-
     let animationFrameId;
-    let frameCount = 0;
-
-    draw(context, frameCount);
 
     const render = () => {
       // frameCount++;

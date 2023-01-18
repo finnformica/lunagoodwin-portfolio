@@ -6,7 +6,7 @@ const GridContainer = ({ display, icons, content, bottom }) => {
       </div>
       <div className="border-b border-black/10 dark:border-white/10 h-full md:relative flex items-center">
         <div
-          className="md:absolute md:right-0 md:bottom-0 md:text-right md:p-6
+          className="md:absolute md:right-0 md:bottom-0 md:text-right p-6
       text-center w-full"
         >
           {content}

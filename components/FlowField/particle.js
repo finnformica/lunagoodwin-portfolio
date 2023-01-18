@@ -22,7 +22,7 @@ export class Particle {
     this.acc.setLength(0);
   }
 
-  wrap() {
+  wrap(w, h) {
     if (this.pos.x > w) {
       this.pos.x = 0;
     } else if (this.pos.x < -this.fieldSize) {

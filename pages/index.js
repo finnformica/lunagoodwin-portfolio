@@ -21,7 +21,7 @@ const TransitionWrapper = ({ children }) => {
   const [displayChildren, setDisplayChildren] = useState(children);
   const [transitionStage, setTransitionStage] = useState("fadeOut");
 
-  // fade in and out page transition
+  // fade in and out transition
   useEffect(() => {
     setTransitionStage("fadeIn");
   }, []);
@@ -63,8 +63,8 @@ const Home = () => {
   };
 
   return (
-    // <TransitionWrapper>
-    <div className="relative h-[calc(100vh_-_101px)]">
+    <TransitionWrapper>
+      {/* <div className="relative h-[calc(100vh_-_101px)]"> */}
       <GridContainer
         display={<DisplayImage name={items[active].img} />}
         content={
@@ -92,8 +92,8 @@ const Home = () => {
           </>
         }
       />
-    </div>
-    // </TransitionWrapper>
+      {/* </div> */}
+    </TransitionWrapper>
   );
 };
 

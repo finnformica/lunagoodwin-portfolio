@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
@@ -17,6 +17,38 @@ const DisplayImage = ({ name }) => {
   );
 };
 
+const TransitionWrapper = ({ children }) => {
+  const [displayChildren, setDisplayChildren] = useState(children);
+  const [transitionStage, setTransitionStage] = useState("fadeOut");
+
+  // fade in and out page transition
+  useEffect(() => {
+    setTransitionStage("fadeIn");
+  }, []);
+
+  useEffect(() => {
+    if (children !== displayChildren) setTransitionStage("fadeOut");
+  }, [children, setDisplayChildren, displayChildren]);
+
+  return (
+    <div
+      style={{
+        opacity: transitionStage === "fadeIn" ? 1 : 0,
+        transition: "opacity 0.5s ease-in",
+      }}
+      onTransitionEnd={() => {
+        if (transitionStage === "fadeOut") {
+          setDisplayChildren(children);
+          setTransitionStage("fadeIn");
+        }
+      }}
+      className="relative h-[calc(100vh_-_101px)]"
+    >
+      {displayChildren}
+    </div>
+  );
+};
+
 const Home = () => {
   const [active, setActive] = useState(0);
 
@@ -31,7 +63,7 @@ const Home = () => {
   };
 
   return (
-    <div className="relative h-[calc(100vh_-_101px)]">
+    <TransitionWrapper>
       <GridContainer
         display={<DisplayImage name={items[active].img} />}
         content={
@@ -59,7 +91,7 @@ const Home = () => {
           </>
         }
       />
-    </div>
+    </TransitionWrapper>
   );
 };
 

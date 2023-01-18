@@ -1,20 +1,16 @@
 import { BsInstagram, BsLinkedin } from "react-icons/bs";
 import { MdOutlineMail } from "react-icons/md";
 import { RxDotsVertical } from "react-icons/rx";
-import FlowField from "../components/FlowField/FlowField";
+
 import GridContainer from "../components/GridContainer/GridContainer";
-import { useScript } from "../hooks/useScript";
+import FlowField from "../components/FlowField/FlowField";
 
 const ContactPage = () => {
-  // useScript("js/vector.js");
-  // useScript("js/flowfield-utils.js");
-
   return (
     <>
       <div className="grow relative">
         <GridContainer
-          // display={<canvas id="canvas" width="400px" height="300px" />}
-          display={<FlowField className="w-full h-full" />}
+          display={<FlowField className="" />}
           content={
             <>
               <p>

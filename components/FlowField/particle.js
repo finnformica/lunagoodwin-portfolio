@@ -1,3 +1,7 @@
+import { Vector } from "./vector";
+
+const maxSpeed = 1.7;
+
 export class Particle {
   constructor(x, y) {
     this.pos = new Vector(x, y);

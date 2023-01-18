@@ -35,3 +35,5 @@ npm run dev
 - React.js
 - Static site generation using Next.js
 - Fade in / out page transitions for improved UX
+- Responsive layout for desktop and mobile
+- Animated flow field using HTML5 canvas element and Simplex noise

@@ -34,7 +34,7 @@ const TransitionWrapper = ({ children }) => {
     <div
       style={{
         opacity: transitionStage === "fadeIn" ? 1 : 0,
-        transition: "opacity 0.5s ease-in",
+        transition: "opacity 1s ease-in",
       }}
       onTransitionEnd={() => {
         if (transitionStage === "fadeOut") {

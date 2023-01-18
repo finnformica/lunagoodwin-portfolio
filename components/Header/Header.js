@@ -42,7 +42,7 @@ const Header = () => {
           href="/"
           style={{ color: router.route === "/" ? "inherit" : "#9e9e9e" }}
         >
-          About
+          Work
         </Link>
         <Link
           className="no-underline dark:text-white text-black"

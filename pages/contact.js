@@ -8,7 +8,7 @@ import FlowField from "../components/FlowField/FlowField";
 const ContactPage = () => {
   return (
     <>
-      <div className="grow relative">
+      <div className="relative h-[calc(100vh_-_101px)]">
         <GridContainer
           display={<FlowField className="" />}
           content={

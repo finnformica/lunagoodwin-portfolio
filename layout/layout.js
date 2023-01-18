@@ -19,7 +19,6 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <main
-        className="grow flex flex-col"
         style={{
           opacity: transitionStage === "fadeIn" ? 1 : 0,
           transition: "opacity 0.5s ease-in",

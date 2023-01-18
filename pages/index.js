@@ -63,7 +63,8 @@ const Home = () => {
   };
 
   return (
-    <TransitionWrapper>
+    // <TransitionWrapper>
+    <div className="relative h-[calc(100vh_-_101px)]">
       <GridContainer
         display={<DisplayImage name={items[active].img} />}
         content={
@@ -91,7 +92,8 @@ const Home = () => {
           </>
         }
       />
-    </TransitionWrapper>
+    </div>
+    // </TransitionWrapper>
   );
 };
 

@@ -13,6 +13,11 @@ const FlowField = (props) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
     let w,
       h,
       field,
@@ -93,9 +98,8 @@ const FlowField = (props) => {
     }
 
     function reset() {
-      const rect = canvas.parentNode.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
 
       noise3D = createNoise3D();
 

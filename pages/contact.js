@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BsInstagram, BsLinkedin } from "react-icons/bs";
 import { MdOutlineMail } from "react-icons/md";
 import { RxDotsVertical } from "react-icons/rx";
@@ -8,14 +7,14 @@ import { useScript } from "../hooks/useScript";
 
 const ContactPage = () => {
   // useScript("js/vector.js");
-  useScript("js/flowfield-utils.js");
+  // useScript("js/flowfield-utils.js");
 
   return (
     <>
       <div className="grow relative">
         <GridContainer
-          display={<canvas id="canvas" width="400px" height="300px" />}
-          // display={<FlowField width="500px" height="200px" />}
+          // display={<canvas id="canvas" width="400px" height="300px" />}
+          display={<FlowField className="w-full h-full" />}
           content={
             <>
               <p>

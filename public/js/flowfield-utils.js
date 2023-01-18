@@ -1,3 +1,6 @@
+// Credit goes to: Johan Karlsson and his Post about Particles in Flowfields: https://codepen.io/DonKarlssonSan/post/particles-in-simplex-noise-flow-field
+// and to Tibix for the interactive demo of his flowfield that he open-sourced for use https://codepen.io/Tibixx/pen/PryaPK
+
 !(function (t) {
   var o = (t.noise = {});
   function r(t, o, r) {
@@ -250,7 +253,7 @@ fieldForce = 0.25;
 noiseSpeed = 0.0015;
 sORp = true;
 trailLength = 0.05;
-hueBase = 0;
+hueBase = 232;
 hueRange = 10;
 maxSpeed = 1.7;
 enableGUI = false;
@@ -345,6 +348,8 @@ ctx = canvas.getContext("2d");
 reset();
 window.addEventListener("resize", reset);
 
+console.log("flow field starting...");
+
 function initParticles() {
   particles = [];
   let numberOfParticles = particleCount;
@@ -420,9 +425,13 @@ function drawParticles() {
   particles.forEach((p) => {
     var ps = (p.fieldSize = Math.abs(p.vel.x + p.vel.y) * particleSize + 0.3);
     ctx.fillStyle =
-      "hsl(0, 0%," +
-      (hueBase + p.hue + (p.vel.x + p.vel.y) * hueRange + 40) +
-      "%)";
+      "hsl(" +
+      (hueBase + p.hue + (p.vel.x + p.vel.y) * hueRange) +
+      ", 100%, 50%)";
+    // ctx.fillStyle =
+    //   "hsl(0, 0%," +
+    //   (hueBase + p.hue + (p.vel.x + p.vel.y) * hueRange + 40) +
+    //   "%)";
     ctx.fillRect(p.pos.x, p.pos.y, ps, ps);
     let pos = p.pos.div(fieldSize);
     let v;

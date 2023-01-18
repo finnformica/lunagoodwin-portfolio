@@ -1,17 +1,44 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { HiArrowNarrowLeft } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
 
 import GridContainer from "../components/GridContainer/GridContainer";
 
-import { items } from "../content/portfolio";
+import img1 from "../public/images/img1.webp";
+import img2 from "../public/images/img2.webp";
+import img3 from "../public/images/img3.webp";
+import img4 from "../public/images/img4.webp";
 
-const DisplayImage = ({ name }) => {
+const items = [
+  {
+    img: img1,
+    title: "Anime Vol. 47",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    img: img2,
+    title: "Anime Vol. 48",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    img: img3,
+    title: "Anime Vol. 49",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+  {
+    img: img4,
+    title: "Anime Vol. 50",
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  },
+];
+
+const DisplayImage = ({ img }) => {
   return (
-    <img
+    <Image
       className="object-cover w-full h-full"
-      src={`/images/${name}`}
+      src={img}
       alt="portfolio image"
     />
   );
@@ -66,7 +93,7 @@ const Home = () => {
     <TransitionWrapper>
       {/* <div className="relative h-[calc(100vh_-_101px)]"> */}
       <GridContainer
-        display={<DisplayImage name={items[active].img} />}
+        display={<DisplayImage img={items[active].img} />}
         content={
           <>
             <p>{items[active].text}</p>

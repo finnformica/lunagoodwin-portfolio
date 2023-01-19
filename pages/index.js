@@ -44,38 +44,6 @@ const DisplayImage = ({ img }) => {
   );
 };
 
-const TransitionWrapper = ({ children }) => {
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState("fadeOut");
-
-  // fade in and out transition
-  useEffect(() => {
-    setTransitionStage("fadeIn");
-  }, []);
-
-  useEffect(() => {
-    if (children !== displayChildren) setTransitionStage("fadeOut");
-  }, [children, setDisplayChildren, displayChildren]);
-
-  return (
-    <div
-      style={{
-        opacity: transitionStage === "fadeIn" ? 1 : 0,
-        transition: "opacity 1s ease-in",
-      }}
-      onTransitionEnd={() => {
-        if (transitionStage === "fadeOut") {
-          setDisplayChildren(children);
-          setTransitionStage("fadeIn");
-        }
-      }}
-      className="relative h-[calc(100vh_-_101px)]"
-    >
-      {displayChildren}
-    </div>
-  );
-};
-
 const Home = () => {
   const [active, setActive] = useState(0);
 
@@ -90,37 +58,40 @@ const Home = () => {
   };
 
   return (
-    <TransitionWrapper>
-      {/* <div className="relative h-[calc(100vh_-_101px)]"> */}
-      <GridContainer
-        display={<DisplayImage img={items[active].img} />}
-        content={
-          <>
-            <p>{items[active].text}</p>
-            <RxDotsVertical
-              size={30}
-              className="my-6 md:ml-auto md:mr-0 mx-auto"
-            />
-            <h1 className="text-3xl">{items[active].title}</h1>
-          </>
-        }
-        icons={
-          <>
-            <HiArrowNarrowLeft
-              size={30}
-              onClick={() => handleLeftClick()}
-              className="cursor-pointer"
-            />
-            <HiArrowNarrowRight
-              size={30}
-              onClick={() => handleRightClick()}
-              className="cursor-pointer"
-            />
-          </>
-        }
-      />
-      {/* </div> */}
-    </TransitionWrapper>
+    <div className="relative h-[calc(100vh_-_101px)]">
+      {items.map((item, id) => (
+        <GridContainer
+          data-index={id}
+          data-status={id === 0 ? "active" : "inactive"}
+          key={id}
+          display={<DisplayImage img={item.img} />}
+          content={
+            <>
+              <p>{item.text}</p>
+              <RxDotsVertical
+                size={30}
+                className="my-6 md:ml-auto md:mr-0 mx-auto"
+              />
+              <h1 className="text-3xl">{item.title}</h1>
+            </>
+          }
+          icons={
+            <>
+              <HiArrowNarrowLeft
+                size={30}
+                onClick={() => handleLeftClick()}
+                className="cursor-pointer"
+              />
+              <HiArrowNarrowRight
+                size={30}
+                onClick={() => handleRightClick()}
+                className="cursor-pointer"
+              />
+            </>
+          }
+        />
+      ))}
+    </div>
   );
 };
 

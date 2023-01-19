@@ -1,6 +1,10 @@
-const GridContainer = ({ display, icons, content, bottom }) => {
+const GridContainer = (props) => {
+  const { display, icons, content, bottom, ...rest } = props;
   return (
-    <article className="grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-full w-full">
+    <article
+      {...rest}
+      className="absolute left-0 top-0 grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-full w-full"
+    >
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         {display}
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiOutlineDesktopComputer } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
 
@@ -44,83 +44,81 @@ const DisplayImage = ({ img }) => {
   );
 };
 
-const TransitionWrapper = ({ children }) => {
-  const [displayChildren, setDisplayChildren] = useState(children);
-  const [transitionStage, setTransitionStage] = useState("fadeOut");
-
-  // fade in and out transition
-  useEffect(() => {
-    setTransitionStage("fadeIn");
-  }, []);
-
-  useEffect(() => {
-    if (children !== displayChildren) setTransitionStage("fadeOut");
-  }, [children, setDisplayChildren, displayChildren]);
-
-  return (
-    <div
-      style={{
-        opacity: transitionStage === "fadeIn" ? 1 : 0,
-        transition: "opacity 1s ease-in",
-      }}
-      onTransitionEnd={() => {
-        if (transitionStage === "fadeOut") {
-          setDisplayChildren(children);
-          setTransitionStage("fadeIn");
-        }
-      }}
-      className="relative h-[calc(100vh_-_101px)]"
-    >
-      {displayChildren}
-    </div>
-  );
-};
-
 const Home = () => {
-  const [active, setActive] = useState(0);
+  let activeIndex = 0;
 
   const handleRightClick = () => {
-    const nextIndex = active + 1 <= 4 - 1 ? active + 1 : 0;
-    setActive(nextIndex);
+    const nextIndex = activeIndex + 1 <= 4 - 1 ? activeIndex + 1 : 0;
+
+    const currentSlide = document.querySelector(
+      `[data-index="${activeIndex}"]`
+    );
+    const nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+
+    currentSlide.dataset.status = "after";
+
+    nextSlide.dataset.status = "becoming-active-from-before";
+
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+
+      activeIndex = nextIndex;
+    });
   };
 
   const handleLeftClick = () => {
-    const nextIndex = active - 1 >= 0 ? active - 1 : 4 - 1;
-    setActive(nextIndex);
+    const nextIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : 4 - 1;
+    const currentSlide = document.querySelector(
+      `[data-index="${activeIndex}"]`
+    );
+    const nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+
+    currentSlide.dataset.status = "before";
+
+    nextSlide.dataset.status = "becoming-active-from-after";
+
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+
+      activeIndex = nextIndex;
+    });
   };
 
   return (
-    <TransitionWrapper>
-      {/* <div className="relative h-[calc(100vh_-_101px)]"> */}
-      <GridContainer
-        display={<DisplayImage img={items[active].img} />}
-        content={
-          <>
-            <p>{items[active].text}</p>
-            <RxDotsVertical
-              size={30}
-              className="my-6 md:ml-auto md:mr-0 mx-auto"
-            />
-            <h1 className="text-3xl">{items[active].title}</h1>
-          </>
-        }
-        icons={
-          <>
-            <HiArrowNarrowLeft
-              size={30}
-              onClick={() => handleLeftClick()}
-              className="cursor-pointer"
-            />
-            <HiArrowNarrowRight
-              size={30}
-              onClick={() => handleRightClick()}
-              className="cursor-pointer"
-            />
-          </>
-        }
-      />
-      {/* </div> */}
-    </TransitionWrapper>
+    <div className="relative h-[calc(100vh_-_101px)]">
+      {items.map((item, id) => (
+        <GridContainer
+          data-index={id}
+          data-status={id === 0 ? "active" : "inactive"}
+          key={id}
+          display={<DisplayImage img={item.img} />}
+          content={
+            <>
+              <p>{item.text}</p>
+              <RxDotsVertical
+                size={30}
+                className="my-6 md:ml-auto md:mr-0 mx-auto"
+              />
+              <h1 className="text-3xl">{item.title}</h1>
+            </>
+          }
+          icons={
+            <>
+              <HiArrowNarrowLeft
+                size={30}
+                onClick={() => handleLeftClick()}
+                className="cursor-pointer"
+              />
+              <HiArrowNarrowRight
+                size={30}
+                onClick={() => handleRightClick()}
+                className="cursor-pointer"
+              />
+            </>
+          }
+        />
+      ))}
+    </div>
   );
 };
 

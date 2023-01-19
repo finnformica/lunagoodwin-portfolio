@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { HiArrowNarrowLeft } from "react-icons/hi";
+import { HiArrowNarrowLeft, HiOutlineDesktopComputer } from "react-icons/hi";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { RxDotsVertical } from "react-icons/rx";
 
@@ -45,16 +45,43 @@ const DisplayImage = ({ img }) => {
 };
 
 const Home = () => {
-  const [active, setActive] = useState(0);
+  let activeIndex = 0;
 
   const handleRightClick = () => {
-    const nextIndex = active + 1 <= 4 - 1 ? active + 1 : 0;
-    setActive(nextIndex);
+    const nextIndex = activeIndex + 1 <= 4 - 1 ? activeIndex + 1 : 0;
+
+    const currentSlide = document.querySelector(
+      `[data-index="${activeIndex}"]`
+    );
+    const nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+
+    currentSlide.dataset.status = "after";
+
+    nextSlide.dataset.status = "becoming-active-from-before";
+
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+
+      activeIndex = nextIndex;
+    });
   };
 
   const handleLeftClick = () => {
-    const nextIndex = active - 1 >= 0 ? active - 1 : 4 - 1;
-    setActive(nextIndex);
+    const nextIndex = activeIndex - 1 >= 0 ? activeIndex - 1 : 4 - 1;
+    const currentSlide = document.querySelector(
+      `[data-index="${activeIndex}"]`
+    );
+    const nextSlide = document.querySelector(`[data-index="${nextIndex}"]`);
+
+    currentSlide.dataset.status = "before";
+
+    nextSlide.dataset.status = "becoming-active-from-after";
+
+    setTimeout(() => {
+      nextSlide.dataset.status = "active";
+
+      activeIndex = nextIndex;
+    });
   };
 
   return (

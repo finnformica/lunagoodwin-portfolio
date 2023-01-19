@@ -5,7 +5,13 @@ const GridContainer = (props) => {
       {...rest}
       className="absolute left-0 top-0 grid grid-cols-[1fr] grid-rows-[1fr_200px_0_100px]  h-full w-full
       md:grid-rows-[1fr_100px] md:grid-cols-[2fr_1fr]
-      data-[status=inactive]:-translate-x-full"
+      data-[status=inactive]:-translate-x-full
+      data-[status=after]:-translate-x-full
+      data-[status=before]:translate-x-full
+      data-[status=becoming-active-from-before]:translate-x-full data-[status=becoming-active-from-before]:transition-none
+      data-[status=becoming-active-from-after]:-translate-x-full data-[status=becoming-active-from-after]:transition-none
+       transition-transform duration-1000 ease-in-out
+      "
     >
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         {display}

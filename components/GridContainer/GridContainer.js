@@ -3,7 +3,9 @@ const GridContainer = (props) => {
   return (
     <article
       {...rest}
-      className="absolute left-0 top-0 grid md:grid-rows-[1fr_100px] grid-cols-[1fr] md:grid-cols-[2fr_1fr] grid-rows-[1fr_200px_0_100px] h-full w-full"
+      className="absolute left-0 top-0 grid grid-cols-[1fr] grid-rows-[1fr_200px_0_100px]  h-full w-full
+      md:grid-rows-[1fr_100px] md:grid-cols-[2fr_1fr]
+      data-[status=inactive]:-translate-x-full"
     >
       <div className="border-r border-black/10 dark:border-white/10 border-b h-full">
         {display}
